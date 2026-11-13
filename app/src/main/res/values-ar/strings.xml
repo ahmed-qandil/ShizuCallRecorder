@@ -43,8 +43,6 @@
     <string name="permissions_grant_access">منح الصلاحية</string>
     <string name="permissions_status_granted">تم المنح</string>
     <string name="permissions_status_required">مطلوب</string>
-    <string name="permission_notifications_label">الإشعارات</string>
-    <string name="permission_notifications_description">تُستخدم لمعرفة حالة التسجيل وتنبيهات الأخطاء.</string>
     <string name="permission_contacts_label">جهات الاتصال</string>
     <string name="permission_contacts_description">تُستخدم لتصفية جهات الاتصال المعروفة لقواعد التجاهل.</string>
     <string name="permission_phone_state_label">حالة الهاتف</string>
@@ -166,16 +164,9 @@
     <string name="settings_debug_mode_description">عرض خيارات المطورين، وتعطيل تنقيح السجلات.</string>
     <string name="settings_debug_caller_number">رقم هاتف تصحيح الأخطاء</string>
     <string name="general_play">تشغيل</string>
-    <string name="post_recording_notification_unknown_caller">متصل مجهول أو غير معروف</string>
     <string name="general_delete">حذف</string>
     <string name="general_deleted">تم الحذف</string>
-    <string name="settings_post_recording_notification">إشعار ما بعد التسجيل</string>
-    <string name="post_recording_notification_title">إدارة التسجيل</string>
     <string name="general_share">مشاركة</string>
-    <string name="delete_recording_confirmation_title">حذف التسجيل</string>
-    <string name="settings_post_recording_notification_description">إظهار إشعار بعد انتهاء التسجيل مع إجراءات سريعة مثل التشغيل والحذف.</string>
-    <string name="delete_recording_confirmation_failed">فشل حذف التسجيل. يرجى التحقق من سجلات التطبيق.</string>
-    <string name="delete_recording_confirmation_message">هل أنت متأكد أنك تريد حذف هذا التسجيل؟ لا يمكن التراجع عن هذا الإجراء.</string>
     <string name="general_permission_escalation_exhausted">فشل الحصول على إذن \'%1$s\' \'%2$s\'.\nاستُنفدت جميع خطوات التصعيد (%3$d).\n\nيرجى التأكد من أن Shizuku قيد التشغيل حالياً، فقد يكون هذا هو سبب الخطأ.\n\nقد تقوم الشركة المصنعة (OEM) لهاتفك بحظر أو التراجع عن جميع تغييرات الأذونات التي أجريناها بشكل نشط. يرجى التحقق من إعدادات هاتفك لمعرفة ما إذا كان هناك أي شيء قد يعطل هذا السلوك.\n\nغالباً ما تتضمن أجهزة Vivo و Oppo و Xiaomi وغيرها من الشركات المصنعة الصينية قيوداً صارمة على النظام قد تمنع الوصول إلى هذا الإذن تماماً.\n\nإذا وجدت طريقة لمنح نفسك الإذن المطلوب يدوياً عبر ADB، فيُرجى إبلاغنا بذلك عن طريق إنشاء تقرير مشكلة على GitHub!</string>
     <string name="settings_overlay_subtitle">عرض نافذة عائمة فوق التطبيقات الأخرى مع إجراءات سريعة لإدارة التسجيل.</string>
     <string name="settings_overlay_title">إظهار نافذة التسجيل العائمة</string>

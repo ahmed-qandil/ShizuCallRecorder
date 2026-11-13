@@ -47,7 +47,6 @@ class AppPreferences(context: Context) {
         val CALL_DETECTION_MODE = CallDetectionMode.getDefaultModeForDevice().key
         const val RECORD_THIRD_PARTY_CALLS = false
 
-        const val POST_RECORDING_FILE_ACTIONS_NOTIFICATION_ENABLED = false
         const val AUTO_RECORD_INCOMING = false
         const val AUTO_RECORD_OUTGOING = false
 
@@ -102,7 +101,6 @@ class AppPreferences(context: Context) {
         // --- Others ---
         RECORDING_FOLDER_URI("recording_folder_uri"),
         VIBRATION_ENABLED("vibration_enabled"),
-        POST_RECORDING_FILE_ACTIONS_NOTIFICATION_ENABLED ("post_recording_file_actions_notification_enabled"),
         AUTO_RECORD_INCOMING("auto_record_incoming"),
         AUTO_RECORD_OUTGOING("auto_record_outgoing"),
         IGNORE_ANONYMOUS_INCOMING("ignore_anonymous_incoming"),
@@ -243,11 +241,6 @@ class AppPreferences(context: Context) {
     
     /** Sets whether vibration is enabled. */
     fun setVibrationEnabled(enabled: Boolean) = setBoolean(Key.VIBRATION_ENABLED, enabled)
-
-    /** Checks if post-recording file actions notification is enabled. */
-    fun isPostRecordingFileActionsNotificationEnabled() = getBoolean(Key.POST_RECORDING_FILE_ACTIONS_NOTIFICATION_ENABLED, DefaultsValue.POST_RECORDING_FILE_ACTIONS_NOTIFICATION_ENABLED)
-    /** Sets whether post-recording file actions notification is enabled. */
-    fun setPostRecordingFileActionsNotificationEnabled(enabled: Boolean) = setBoolean(Key.POST_RECORDING_FILE_ACTIONS_NOTIFICATION_ENABLED, enabled)
 
     /**
      * Gets the current preferred detection mode, automatically falling back

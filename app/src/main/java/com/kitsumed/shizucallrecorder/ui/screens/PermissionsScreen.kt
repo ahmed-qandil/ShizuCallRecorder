@@ -257,7 +257,6 @@ fun PermissionsContent(
                 )
 
                 val globalPermissions = listOf(
-                    Triple(stringResource(R.string.permission_notifications_label), stringResource(R.string.permission_notifications_description), status.notificationsGranted to Icons.Default.QuestionAnswer),
                     Triple(stringResource(R.string.permission_contacts_label), stringResource(R.string.permission_contacts_description), status.contactsGranted to Icons.Default.RecentActors),
                     Triple(stringResource(R.string.permission_battery_label), stringResource(R.string.permission_battery_description), status.batteryExempted to Icons.Default.BatterySaver),
                     Triple(stringResource(R.string.settings_recording_folder_label), stringResource(R.string.permission_storage_description), status.storageSelected to Icons.Default.Folder)
@@ -427,7 +426,6 @@ private fun PermissionsScreenPreview() {
         PermissionsContent(
             status = OnboardingStatus.Status(
                 disclaimerAccepted = true,
-                notificationsGranted = false,
                 contactsGranted = true,
                 batteryExempted = false,
                 storageSelected = false,

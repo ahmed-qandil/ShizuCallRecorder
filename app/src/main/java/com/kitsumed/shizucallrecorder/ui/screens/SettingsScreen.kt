@@ -459,7 +459,6 @@ private fun RecordingSection(
     val callDetectionMode = remember(updateTrigger) { preferences.getCallDetectionMode() }
     val recordThirdPartyCalls = remember(updateTrigger) { preferences.isRecordThirdPartyCallsEnabled() }
     val fileNameFormat = remember(updateTrigger) { preferences.getFileNameTemplate() }
-    val postRecordingFileNotifications = remember(updateTrigger) { preferences.isPostRecordingFileActionsNotificationEnabled() }
     val isVibrationEnabled = remember(updateTrigger) { preferences.isVibrationEnabled() }
     val autoRecordIncoming = remember(updateTrigger) { preferences.isAutoRecordIncomingEnabled() }
     val autoRecordOutgoing = remember(updateTrigger) { preferences.isAutoRecordOutgoingEnabled() }
@@ -568,13 +567,6 @@ private fun RecordingSection(
         )
 
         HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp), thickness = 0.5.dp)
-
-        ToggleListItem(
-            label = stringResource(R.string.settings_post_recording_notification),
-            description = stringResource(R.string.settings_post_recording_notification_description),
-            checked = postRecordingFileNotifications,
-            onCheckedChange = { actions.setPostRecordingFileNotification(it) }
-        )
 
         ToggleListItem(
             label           = stringResource(R.string.settings_vibration_enabled),
@@ -1002,7 +994,6 @@ private fun SettingsScreenPreview() {
             override fun setFileNameTemplate(template: String) {}
             override fun setCallDetectionMode(mode: CallDetectionMode) {}
             override fun setRecordThirdPartyCalls(enabled: Boolean) {}
-            override fun setPostRecordingFileNotification(enabled: Boolean) {}
             override fun setOverlayEnabled(enabled: Boolean) {}
             override fun setPlaybackCaptureAllowed(enabled: Boolean) {}
             override fun setAudioChannelSplitEnabled(enabled: Boolean) {}

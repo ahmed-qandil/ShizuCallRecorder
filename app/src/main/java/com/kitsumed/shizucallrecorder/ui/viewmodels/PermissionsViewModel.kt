@@ -85,7 +85,6 @@ class PermissionsViewModel(application: Application) : AndroidViewModel(applicat
         when {
             !status.shizukuRunning           -> {appContext.openShizukuManager(); return}
             !status.shizukuPermissionGranted -> {ShizukuConnectionManager.requestPermission(); return}
-            !status.notificationsGranted     -> {requestRuntimePermission(Manifest.permission.POST_NOTIFICATIONS); return}
             !status.contactsGranted          -> {requestRuntimePermission(Manifest.permission.READ_CONTACTS); return}
             !status.batteryExempted          -> {
                 appContext.startActivity(

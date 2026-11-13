@@ -13,23 +13,12 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.PowerManager
 import android.provider.Settings
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 
 /**
  * PermissionChecks centralises all runtime permission queries used throughout the app.
  */
 object PermissionChecks {
-
-    /**
-     * Returns true if the app is allowed to post notifications.
-     *
-     * @param context The app context.
-     * @return true if the app can post notifications.
-     */
-    fun hasNotificationPermission(context: Context): Boolean {
-        return NotificationManagerCompat.from(context).areNotificationsEnabled()
-    }
 
     /**
      * Returns true if [Manifest.permission.READ_CONTACTS] is granted.

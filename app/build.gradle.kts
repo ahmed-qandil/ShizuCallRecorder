@@ -65,8 +65,8 @@ android {
         minSdk = 30
         targetSdk = 37
         // Keep theses two values hard-coded here and update them per version. (To keep F-Droid compatibility since their parser is very basic)
-        versionCode = 20
-        versionName = "2.0.0"
+        versionCode = 21
+        versionName = "2.0.0-ar2"
         // Keep only Arabic and English resources (also strips library locales, shrinks APK)
         resourceConfigurations += setOf("ar", "en")
     }

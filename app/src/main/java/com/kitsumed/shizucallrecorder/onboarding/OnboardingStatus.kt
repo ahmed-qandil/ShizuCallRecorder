@@ -28,7 +28,6 @@ object OnboardingStatus {
      * An object that contains the state of every prerequisite (permissions) the app requires to work.
      *
      * @param disclaimerAccepted        True if the user has accepted the app disclaimer.
-     * @param notificationsGranted      True if the app can post notifications.
      * @param contactsGranted           True if READ_CONTACTS is granted.
      * @param batteryExempted           True if the app is on the battery-optimisation whitelist.
      * @param storageSelected           True if a valid SAF recording folder has been chosen.
@@ -39,7 +38,6 @@ object OnboardingStatus {
      */
     data class Status(
         val disclaimerAccepted: Boolean,
-        val notificationsGranted: Boolean,
         val contactsGranted: Boolean,
         val batteryExempted: Boolean,
         val storageSelected: Boolean,
@@ -53,7 +51,7 @@ object OnboardingStatus {
          */
         fun isComplete(): Boolean {
             // Global App Permissions
-            val globalsMet = disclaimerAccepted && notificationsGranted &&
+            val globalsMet = disclaimerAccepted &&
                     contactsGranted && batteryExempted &&
                     storageSelected && shizukuRunning && shizukuPermissionGranted
 
@@ -82,7 +80,6 @@ object OnboardingStatus {
 
         return Status(
             disclaimerAccepted       = preferences.isDisclaimerAccepted(),
-            notificationsGranted     = PermissionChecks.hasNotificationPermission(context),
             contactsGranted          = PermissionChecks.hasContactsPermission(context),
             batteryExempted          = PermissionChecks.hasBatteryExemption(context),
             storageSelected          = SafHelper.isFolderValid(context, storageUri),

@@ -15,7 +15,6 @@ import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.IBinder
 import androidx.core.content.IntentCompat
-import androidx.documentfile.provider.DocumentFile
 import com.kitsumed.shizucallrecorder.IShellService
 import com.kitsumed.shizucallrecorder.R
 import com.kitsumed.shizucallrecorder.data.AppPreferences
@@ -64,7 +63,6 @@ class RecordingForegroundService : Service() {
         const val ACTION_MANUAL_START = "com.kitsumed.shizucallrecorder.MANUAL_START_RECORDING"
 
         /** Intent action sent to this service when the user dismisses the notification (Android 14+). */
-        const val ACTION_NOTIFICATION_DISMISSED = "com.kitsumed.shizucallrecorder.SERVICE_NOTIFICATION_DISMISSED"
     }
 
     // ── Dependencies ──────────────────────────────────────────────────────────
@@ -249,10 +247,6 @@ class RecordingForegroundService : Service() {
             }
 
             ACTION_STOP_RECORDING -> stopRecordingSessionAndService()
-            ACTION_NOTIFICATION_DISMISSED -> {
-                AppLogger.d( "Ongoing foreground service notification dismissed by user (Android 14+), reposting.")
-                updateNotification()
-            }
         }
         return START_NOT_STICKY
     }
@@ -358,25 +352,6 @@ class RecordingForegroundService : Service() {
 
         AppLogger.i("Stopping active recording session, removing foreground notification and stopping service...")
         activeSession.release()
-
-        // If the user has enabled post-recording file actions, show a notification with options.
-        if (appPreferences.isPostRecordingFileActionsNotificationEnabled()) {
-            activeSession.currentRecordingUri?.let { filePathUri ->
-                activeSession.initializationMetadata.let { metadata ->
-
-                    // Ensure the file was written and exists
-                    val docFile = DocumentFile.fromSingleUri(applicationContext, filePathUri)
-                    if (docFile != null && docFile.exists() && docFile.length() > 0) {
-                        AppLogger.d("Showing post-recording notification for user actions.")
-
-                        notificationHelper.showPostCallNotification(
-                            filePathUri,
-                            metadata
-                        )
-                    }
-                }
-            }
-        }
 
         _serviceState.update {
             RecordingServiceState.Standby(null)

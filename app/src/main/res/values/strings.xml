@@ -118,9 +118,6 @@
     <string name="permissions_status_granted">Granted</string>
     <string name="permissions_status_required">Required</string>
 
-    <string name="permission_notifications_label">Notifications</string>
-    <string name="permission_notifications_description">Used for recording status and error alerts.</string>
-
     <string name="permission_contacts_label">Contacts</string>
     <string name="permission_contacts_description">Used to filter known contacts for ignore rules.</string>
 
@@ -191,9 +188,6 @@
     <string name="placeholder_caller_name_desc">The name of the caller, look at the contacts list first, fallback to telecom CallerID when available</string>
     <string name="placeholder_cross_country_desc">Indicates if the call is cross-country (true/false)</string>
     <string name="placeholder_package_name_desc">The name or package name of the app that initiated the call.</string>
-
-    <string name="settings_post_recording_notification">Post-Recording Notification</string>
-    <string name="settings_post_recording_notification_description">Show a notification after the recording ends with quick actions like play and delete.</string>
     <string name="settings_vibration_enabled">Vibrate on start/stop</string>
     
     <string name="settings_auto_record_incoming">Automatically record incoming calls</string>
@@ -316,12 +310,6 @@
     <string name="recording_toast_paused">Recording paused.</string>
     <string name="recording_toast_resumed">Recording resumed.</string>
     <string name="recording_started">Recording started.</string>
-    <string name="post_recording_notification_title">Recording Management</string>
-    <string name="post_recording_notification_unknown_caller">Anonymous or Unknown caller</string>
-    <!-- Recording Service: DeleteDialogConfirmationActivity -->
-    <string name="delete_recording_confirmation_title">Delete Recording</string>
-    <string name="delete_recording_confirmation_message">Are you sure you want to delete this recording? This action cannot be undone.</string>
-    <string name="delete_recording_confirmation_failed">Failed to delete recording. Please check the applications logs.</string>
     <!-- Recording Service: Errors -->
     <string name="recording_error_title">Recording Error</string>
     <string name="recording_error_folder_missing">Selected output folder is missing, invalid, or we do not have permission to write to it. Select one in the app settings.</string>
