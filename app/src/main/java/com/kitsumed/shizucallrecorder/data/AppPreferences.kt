@@ -36,7 +36,7 @@ class AppPreferences(context: Context) {
      */
     object DefaultsValue {
         // --- Onboarding & Legal ---
-        const val DISCLAIMER_ACCEPTED = false
+        const val DISCLAIMER_ACCEPTED = true
 
         // Calculates (Install Time - 10 Months) to leave exactly 2 months remaining
         fun LAST_FORCED_REMINDER_SUPPORT_PROJECT_TIME(context: Context): Long = (runCatching { context.packageManager.getPackageInfo(context.packageName, 0).firstInstallTime }.getOrDefault(Long.MIN_VALUE)) - 25920000000L // 300 days in milliseconds
@@ -74,7 +74,7 @@ class AppPreferences(context: Context) {
         val AUDIO_BITRATE = RecordingCodec.OPUS.defaultBitRate
 
         // --- File Naming ---
-        const val FILE_NAME_TEMPLATE = "{date}_{direction}_{phone_number}"
+        const val FILE_NAME_TEMPLATE = "{caller_name}_{phone_number}_{date:day}-{date:month}-{date:year}_{date:hours}-{date:minutes}-{date:seconds}"
 
         // --- UI & Appearance ---
         val THEME_MODE = ThemeMode.SYSTEM

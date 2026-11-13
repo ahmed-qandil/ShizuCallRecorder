@@ -200,7 +200,6 @@ fun SettingsContent(
                     fontWeight = FontWeight.Bold
                 )
             }
-            item { AboutSection(versionString = actions.getAppVersion()) }
             item {
                 RecordingSection(
                     preferences = preferences,
@@ -214,7 +213,6 @@ fun SettingsContent(
             item { AudioSection(preferences, updateTrigger, actions) }
             item { SecuritySection(preferences, updateTrigger, actions) }
             item { VisualSection(preferences, updateTrigger, actions) }
-            item { DebugSection(preferences, updateTrigger, actions, onExportLogs) }
             item {  } // extra padding at bottom
         }
     }
@@ -235,99 +233,6 @@ fun SettingsContent(
 }
 
 // ── Settings sections ──────────────────────────────────────────────────────────────────────
-
-/** Shows the app version, server version, clipboard buttons, and a GitHub link.
- */
-@Composable
-private fun AboutSection(versionString: String) {
-    val context = LocalContext.current
-
-    var showLicensesDialog by remember() { mutableStateOf(false) }
-    var showSponsorScreen by remember() { mutableStateOf(false) }
-
-    SettingsSection(title = stringResource(R.string.settings_section_about)) {
-        ListItem(
-            headlineContent = { Text(versionString) },
-            colors = ListItemDefaults.colors(containerColor = Color.Transparent)
-        )
-        Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            OutlinedButton(
-                onClick = { context.openGithubWiki() },
-                modifier = Modifier.weight(1f)
-            ) { Text(stringResource(R.string.settings_open_github_Wiki)) }
-            OutlinedButton(
-                onClick = { showLicensesDialog = true },
-                modifier = Modifier.weight(1f)
-            ) { Text(stringResource(R.string.settings_view_licenses)) }
-        }
-        Button(
-            onClick = { showSponsorScreen = true },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 4.dp)
-        ) { Text(stringResource(R.string.sponsor_title)) }
-    }
-
-    if (showSponsorScreen) {
-        Dialog(
-            onDismissRequest = { showSponsorScreen = false },
-            properties = DialogProperties(
-                usePlatformDefaultWidth = false, // False for edge-to-edge, since our SponsorScreen take full screen
-                decorFitsSystemWindows = false,
-                dismissOnClickOutside = false,
-                dismissOnBackPress = true,
-
-            )
-        ) {
-            SponsorScreen(onDismiss = { showSponsorScreen = false })
-        }
-    }
-
-    // Handle license dialog
-    if (showLicensesDialog) {
-        Dialog(
-            onDismissRequest = { showLicensesDialog = false },
-            properties = DialogProperties(usePlatformDefaultWidth = false)
-        ) {
-            Surface(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                shape = MaterialTheme.shapes.large,
-                color = MaterialTheme.colorScheme.surface
-            ) {
-                Column {
-                    Text(
-                        text = stringResource(R.string.general_licenses),
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.padding(16.dp)
-                    )
-
-                    val libraries by produceLibraries(R.raw.aboutlibraries)
-                    LibrariesContainer(libraries,
-                        Modifier
-                            .fillMaxSize()
-                            .weight(1f),
-                        variant = LibrariesVariant.Refined,
-                        badges = LibraryBadges(version = true, license = true, author = true, description = true, funding = false),
-                        actionMode = LibraryActionMode.Chips
-                    )
-                    TextButton(
-                        onClick = { showLicensesDialog = false },
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .padding(8.dp)
-                    ) {
-                        Text(stringResource(R.string.general_close))
-                    }
-                }
-            }
-        }
-    }
-}
 
 /** Shows the theme and dynamic colour settings.
  *
@@ -888,158 +793,6 @@ private fun AudioSection(preferences: AppPreferences, updateTrigger: Int, action
     }
 }
 
-/** Shows the debug toggle, and when enabled, a caller-number field and test-call buttons.
- *
- * @param preferences   The [AppPreferences] instance to read data from.
- * @param updateTrigger Trigger value to force recomposition when settings change.
- * @param actions       Implementation of [SettingsActions] to handle user interaction.
- * @param onExportLogs  Called to export logs via SAF when logging is enabled.
- */
-@Composable
-private fun DebugSection(preferences: AppPreferences, updateTrigger: Int, actions: SettingsActions, onExportLogs: () -> Unit) {
-    val isDebugEnabled = remember(updateTrigger) { preferences.isDebugEnabled() }
-    val debugCallerNumber = remember(updateTrigger) { preferences.getDebugCallerNumber() }
-    val isLoggingEnabled = remember(updateTrigger) { preferences.isLoggingEnabled() }
-    val context = LocalContext.current
-
-    SettingsSection(title = stringResource(R.string.settings_section_debug)) {
-        ToggleListItem(
-            label           = stringResource(R.string.settings_debug_logging_enabled),
-            checked         = isLoggingEnabled,
-            onCheckedChange = { actions.setLoggingEnabled(it) },
-            description     = if (!isLoggingEnabled) stringResource(R.string.settings_debug_logging_enabled_description) else null
-        )
-
-        AnimatedVisibility(
-            visible = isLoggingEnabled,
-            enter = fadeIn(animationSpec = tween(400)) +
-                    expandVertically(
-                        animationSpec = tween(400, easing = LinearOutSlowInEasing),
-                        expandFrom = Alignment.Top
-                    ),
-            exit = fadeOut(animationSpec = tween(300)) +
-                    shrinkVertically(
-                        animationSpec = tween(300, easing = LinearOutSlowInEasing),
-                        shrinkTowards = Alignment.Top
-                    )
-        ) {
-            Surface(
-                shape = MaterialTheme.shapes.medium,
-                color = MaterialTheme.colorScheme.surfaceContainer,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 8.dp)
-            ) {
-                Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 12.dp)) {
-                    Text(
-                        text = stringResource(R.string.settings_debug_logging_title),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.padding(bottom = 8.dp)
-                    )
-                    Text(
-                        text = stringResource(R.string.settings_debug_logging_steps),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Text(
-                        text = stringResource(R.string.settings_debug_logging_step_warning),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.error
-                    )
-
-                    if (isDebugEnabled) {
-                        Spacer(modifier = Modifier.height(5.dp))
-                        Text(
-                            text = stringResource(R.string.settings_debug_logging_step_warning_no_redaction),
-                            style = MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.error
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Button(
-                            onClick = onExportLogs,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(stringResource(R.string.settings_debug_logging_generate_report))
-                        }
-
-                        OutlinedButton(
-                            onClick = { context.openGithubReportIssue()},
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(stringResource(R.string.settings_debug_logging_report_on_github))
-                        }
-                    }
-                }
-
-            }
-        }
-        HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp), thickness = 0.5.dp)
-
-        ToggleListItem(
-            label           = stringResource(R.string.settings_debug_mode),
-            checked         = isDebugEnabled,
-            onCheckedChange = { actions.setDebugEnabled(it) },
-            description = stringResource(R.string.settings_debug_mode_description)
-        )
-
-        AnimatedVisibility(
-            visible = isDebugEnabled,
-            enter = fadeIn(animationSpec = tween(400)) +
-                    expandVertically(
-                        animationSpec = tween(400, easing = LinearOutSlowInEasing),
-                        expandFrom = Alignment.Top
-                    ),
-            exit = fadeOut(animationSpec = tween(300)) +
-                    shrinkVertically(
-                        animationSpec = tween(300, easing = LinearOutSlowInEasing),
-                        shrinkTowards = Alignment.Top
-                    )
-        ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                var textState by remember(debugCallerNumber) { mutableStateOf(debugCallerNumber) }
-                val allowedChars = "^[0-9+-]*$".toRegex()
-
-                LaunchedEffect(textState) {
-                    delay(100.milliseconds) // Cancel current if new textState comes in within x time
-                    if (textState != debugCallerNumber) {
-                        actions.setDebugCallerNumber(textState)
-                    }
-                }
-
-                OutlinedTextField(
-                    value    = textState,
-                    onValueChange = { newValue ->
-                        if (newValue.matches(allowedChars)) {
-                            textState = newValue
-                        }
-                    },
-                    label    = { Text(stringResource(R.string.settings_debug_caller_number)) },
-                    modifier = Modifier.fillMaxWidth(),
-                    singleLine = true,
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done, keyboardType = KeyboardType.Phone, showKeyboardOnFocus = true),
-                )
-                DebugActionGrid(actions)
-            }
-
-        }
-    }
-}
-
 // ── Internal helper composables ────────────────────────────────────────────────────────────
 
 
@@ -1206,33 +959,6 @@ fun WarningCard(
                     text = message,
                     style = MaterialTheme.typography.bodyMedium
                 )
-            }
-        }
-    }
-}
-
-/** A row of buttons for simulating different call events during testing.
- *
- * @param actions Called via proxy for each button press.
- */
-@Composable
-private fun DebugActionGrid(actions: SettingsActions) {
-    val items = listOf(
-        DebugAction.RINGING  to stringResource(R.string.settings_debug_action_ringing),
-        DebugAction.OFFHOOK  to stringResource(R.string.settings_debug_action_offhook),
-        DebugAction.IDLE     to stringResource(R.string.settings_debug_action_idle)
-    )
-    Row(
-        horizontalArrangement = Arrangement.spacedBy(8.dp),
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        items.forEach { (action, label) ->
-            FilledTonalButton(
-                onClick = { actions.triggerDebugAction(action) },
-                modifier = Modifier.weight(1f),
-                contentPadding = PaddingValues(horizontal = 4.dp)
-            ) {
-                Text(label, style = MaterialTheme.typography.labelSmall)
             }
         }
     }

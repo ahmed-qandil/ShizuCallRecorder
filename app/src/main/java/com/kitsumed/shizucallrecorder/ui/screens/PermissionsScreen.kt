@@ -88,8 +88,6 @@ fun PermissionsScreen(
 
     val activityContext = LocalContext.current
 
-    // Quick debug dialog for when issues arise on the permission setup.
-    var showDebugDialog by remember() { mutableStateOf(false) }
     val activityScope = rememberCoroutineScope()
 
     val isProcessingGrantingRequest by viewModel.isProcessingGrantingRequest.collectAsStateWithLifecycle()
@@ -176,87 +174,6 @@ fun PermissionsScreen(
         )
     }
 
-    if (showDebugDialog) {
-        val prefs = remember { AppPreferences(activityContext) }
-        val exportLogLauncher = rememberLauncherForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri: Uri? ->
-            if (uri != null) {
-                activityScope.launch(Dispatchers.IO) {
-                    AppLogger.exportReport(activityContext, uri)
-                }
-            }
-        }
-        var isLoggingEnabled by remember { mutableStateOf(prefs.isLoggingEnabled()) }
-
-        Dialog(
-            onDismissRequest = { showDebugDialog = false }
-        ) {
-            Card(
-                modifier = Modifier.fillMaxWidth(),
-                shape = MaterialTheme.shapes.extraLarge,
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-                )
-            ) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .verticalScroll(rememberScrollState())
-                        .padding(vertical = 14.dp)
-                ) {
-                    Text(
-                        text = stringResource(R.string.settings_section_debug),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.onSurface,
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp)
-                    )
-
-                    ToggleListItem(
-                        label = stringResource(R.string.settings_debug_logging_enabled),
-                        description = stringResource(R.string.settings_debug_logging_enabled_description),
-                        checked = isLoggingEnabled,
-                        onCheckedChange = { checked ->
-                            prefs.setLoggingEnabled(checked)
-                            isLoggingEnabled = checked
-                        }
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Column(
-                        modifier = Modifier.fillMaxWidth()
-                            .padding(horizontal = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Button(
-                            onClick = { exportLogLauncher.launch("shizucallrecorder_debug_report.txt") },
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text(stringResource(R.string.settings_debug_logging_generate_report))
-                        }
-
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            OutlinedButton(
-                                onClick = { activityContext.openGithubReportIssue() }
-                            ) {
-                                Text(stringResource(R.string.settings_debug_logging_report_on_github))
-                            }
-
-                            TextButton(
-                                onClick = { showDebugDialog = false }
-                            ) {
-                                Text(text = stringResource(R.string.general_close))
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     PermissionsContent(
         status = status,
         onGrantAccessButtonClick = {
@@ -272,13 +189,7 @@ fun PermissionsScreen(
             onPermissionGranted() // Refresh the UI after changing the mode
         },
         isProcessingGrantingRequest = isProcessingGrantingRequest,
-        modifier = modifier.pointerInput(Unit) {
-            detectTapGestures(
-                onLongPress = {
-                    showDebugDialog = true
-                }
-            )
-        }
+        modifier = modifier
     )
 }
 

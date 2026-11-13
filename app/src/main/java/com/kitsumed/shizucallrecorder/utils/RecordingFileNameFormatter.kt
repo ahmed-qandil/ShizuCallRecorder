@@ -113,6 +113,13 @@ object RecordingFileNameFormatter {
             .replace(FileNamePlaceholder.CALLER_NAME.tag, callerNameStr)
             .replace(FileNamePlaceholder.CROSS_COUNTRY.tag, crossCountryStr)
             .replace(FileNamePlaceholder.PACKAGE_NAME.tag, packageName)
+            // Collapse separator artifacts left behind by placeholders that resolved to an
+            // empty string (e.g. unknown caller name), so " _+2010..." or "a__b" never appear.
+            .replace(Regex("_+"), "_")
+            .trim('_')
+            // Cap the base name length: long contact names + template can exceed SAF/filesystem
+            // name limits, which would fail file creation and lose the recording entirely.
+            .take(120)
 
         AppLogger.v( "Formatted base filename: '$baseName' with template '$template'")
         return "$baseName${codec.containerExtension}"

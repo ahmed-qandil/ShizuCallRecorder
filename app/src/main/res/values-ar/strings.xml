@@ -187,4 +187,67 @@
     <string name="a11y_overlay_action_pause">إيقاف التسجيل مؤقتاً</string>
     <string name="a11y_overlay_recording_stopped">جاهز للتسجيل</string>
     <string name="a11y_overlay_action_start">بدء التسجيل</string>
+    <!-- Added Arabic translations (missing from upstream) -->
+    <string name="settings_audio_allow_playback_api">السماح بالالتقاط عبر Playback API</string>
+    <string name="settings_audio_allow_playback_api_desc">عند اكتشاف مكالمات VoIP أو الاتصال عبر Wi-Fi، يتم تجاوز مصادر الصوت الصاعد/الهابط المحددة واستخدام التقاط صوت التشغيل أو أي مصدر مكافئ لمحاولة التقاط الصوت.</string>
+    <string name="settings_audio_channel_split">فصل قنوات الصوت الصاعد/الهابط</string>
+    <string name="settings_audio_channel_split_desc">يوضع الصوت الصاعد في القناة اليسرى والهابط في القناة اليمنى.</string>
+    <string name="audio_source_voice_comm">ميكروفون الاتصال الصوتي</string>
+    <string name="audio_source_voice_call">المكالمة الصوتية</string>
+    <string name="audio_source_voice_recognition">ميكروفون التعرف على الصوت</string>
+    <string name="audio_source_voice_recognition_description">مصدر صوت ميكروفون مضبوط للتعرف على الصوت.</string>
+    <string name="audio_source_remote_submix">صوت مخرجات الجهاز (Remote Submix)</string>
+    <string name="audio_source_remote_submix_description">يلتقط الصوت تماماً كما يُرسل إلى السماعات. سيتوقف الجهاز عن إصدار الصوت.</string>
+    <string name="audio_source_voice_call_uplink">المكالمة الصوتية - الصاعد (صوتك)</string>
+    <string name="audio_source_voice_call_downlink">المكالمة الصوتية - الهابط (صوت الطرف الآخر)</string>
+    <string name="audio_source_uplink_downlink">الصاعد + الهابط</string>
+    <string name="audio_source_uplink_downlink_description">يسجل طرفي المكالمة الهاتفية (بمزج الصاعد + الهابط) بدون نغمات الهاتف.</string>
+    <string name="audio_source_mic_voice_communication_downlink">ميكروفون الاتصال الصوتي + الهابط</string>
+    <string name="audio_source_mic_voice_communication_downlink_description">يسجل طرفي المكالمة الهاتفية (بمزج ميكروفون الاتصال الصوتي + الهابط) بدون نغمات الهاتف.</string>
+    <string name="audio_source_mic_voice_recognition_downlink">ميكروفون التعرف على الصوت + الهابط</string>
+    <string name="audio_source_mic_voice_recognition_downlink_description">يسجل طرفي المكالمة الهاتفية (بمزج ميكروفون التعرف على الصوت + الهابط) بدون نغمات الهاتف.</string>
+    <string name="call_detection_mode_phonestate_title">حالة الهاتف (Phone State)</string>
+    <string name="call_detection_mode_incallservice_title">خدمة المكالمات (InCallService)</string>
+    <string name="settings_debug_action_ringing">يرن</string>
+    <string name="settings_debug_action_offhook">سماعة مرفوعة</string>
+    <string name="settings_debug_action_idle">خامل / انتهاء</string>
+    <string name="audio_bitrate_kbps">%1$d كيلوبت/ث</string>
+    <string name="recording_error_cannot_reach_binder">فشل بدء التسجيل. حدث خطأ أثناء استدعاء أسلوب ShellService binder.</string>
+    <string name="recording_failure_capture_start_failed">حدث خطأ عند بدء التقاط الصوت.</string>
+    <string name="recording_failure_capture_read_failed">حدث خطأ أثناء قراءة ومعالجة الصوت الملتقط.</string>
+    <string name="disclaimer_body">
+        باستخدامك هذا التطبيق، فأنت تؤكد أنك قرأت إخلاء المسؤولية هذا وتقر بأن هذا البرنامج مرخّص بموجب رخصة جنو العمومية العامة الإصدار 3.0 مع بنود إضافية بموجب المادة 7.\n\n
+
+        حقوق النشر © 2026 Kitsumed (Med)\n\n
+
+        هذا البرنامج برنامج حر: يمكنك إعادة توزيعه و/أو تعديله بموجب شروط رخصة جنو العمومية العامة كما نشرتها مؤسسة البرمجيات الحرة، سواء الإصدار 3 من الرخصة أو (حسب اختيارك) أي إصدار لاحق.\n\n
+
+        يوزَّع هذا البرنامج على أمل أن يكون مفيداً، ولكن دون أي ضمان؛ حتى دون الضمان الضمني لقابلية التسويق أو الملاءمة لغرض معين. راجع رخصة جنو العمومية العامة لمزيد من التفاصيل.\n\n
+
+        يجب أن تكون قد تلقيت نسخة من رخصة جنو العمومية العامة مع هذا البرنامج. وإلا فراجع https://github.com/kitsumed/ShizuCallRecorder/blob/main/LICENSE/.\n\n
+
+        ----------------------إخلاء مسؤولية---------------------------\n\n
+
+        قد يخضع تسجيل المكالمات الهاتفية لقوانين معقدة ومتباينة في مختلف البلدان والولايات القضائية. على سبيل المثال، قد تحتاج إلى التأكد من حصولك على موافقة جميع الأطراف قبل تسجيل المحادثات. المطورون والمساهمون غير مسؤولين عن أي سوء استخدام أو عواقب قانونية تنشأ عن استخدام هذا التطبيق.\n
+        يمكنك الاطلاع على المزيد في ويكيبيديا على:\n https://en.wikipedia.org/wiki/Telephone_call_recording_laws.\n\n
+
+        إذا كنت ملزماً قانوناً بإبلاغ شخص ما أو طلب موافقته قبل التسجيل، يرجى ملاحظة أن التطبيق لا يتولى ذلك عنك إطلاقاً.\n
+        في بعض الحالات، قد لا تكون بعض الميزات، مثل التسجيل التلقائي للمكالمات، مسموحاً بها قانوناً. تقع على عاتقك مسؤولية ضمان الامتثال للقوانين المعمول بها. هذه ليست استشارة قانونية. يرجى استشارة مختص قانوني بشأن حالتك الخاصة.\n\n
+
+        سلوك التطبيق\n
+        بسبب تطور نظام أندرويد وتباين الأجهزة (الشركات المصنعة)، قد يصدر عن هذا البرنامج سلوك غير حتمي:\n\n
+
+        * المكالمات المتزامنة: قد يفشل التطبيق في اكتشاف الانتقالات (مثلاً أثناء وجودك في مكالمة تصل مكالمة ثانية، أو التبديل بين مكالمات معلقة). في هذه الحالات قد يستمر التطبيق في تسجيل الصوت في ملف واحد متواصل دون إشعارات منفصلة أو مطالبات جديدة للمتصلين اللاحقين.\n\n
+
+        * حدود منطق التصفية: بسبب قيود أندرويد المتعلقة بالخصوصية على الوصول الفوري إلى رقم الهاتف، قد يعتمد التطبيق، بحسب وضع اكتشاف المكالمة، على جلب قيم مهملة أو غير مستقرة عند تلقي تحديثات حالة الهاتف. قد يُستخدم هذا الفحص الأولي لتقرير ما إذا كان سيبدأ التسجيل تلقائياً بناءً على إعداداتك. وعند تلقي القيمة متأخرة جداً أو بيانات غير صالحة أو عدم تلقي أي بيانات، من المرجح أن يعتبر التطبيق المكالمة مجهولة المصدر في قراره.\n\n
+
+        * أعطال غير متوقعة: قد تتسبب تحديثات النظام المستقبلية أو الأخطاء أو خيارات تصميم التطبيق أو سلوكيات غير موثقة في النظام في أن يبدأ التطبيق التسجيل و/أو يستمر فيه، أو يفشل، بطريقة غير متوقعة.\n\n
+
+        وعي المستخدم\n
+        نظراً لعدم إمكانية ضمان سلوك حتمي في التطبيق، تقع على عاتقك مسؤولية:\n\n
+
+        1. التأكد من أن سلوك التسجيل وإعدادات التطبيق تتوافق مع قصدك ومع المتطلبات المحددة في بلدك.\n\n
+
+        2. مراقبة سلوك التطبيق على جهازك. إذا لاحظت أي سلوك لا يتوافق مع قوانينك المحلية، يجب عليك إيقاف أي نشاط يشكل مخالفة قانونية فوراً (مثلاً إنهاء المكالمة، حذف ملفات الصوت، وما إلى ذلك).
+    </string>
 </resources>

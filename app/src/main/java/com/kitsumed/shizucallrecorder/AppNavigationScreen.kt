@@ -35,7 +35,6 @@ import com.kitsumed.shizucallrecorder.onboarding.OnboardingStatus
 import com.kitsumed.shizucallrecorder.ui.screens.DisclaimerScreen
 import com.kitsumed.shizucallrecorder.ui.screens.PermissionsScreen
 import com.kitsumed.shizucallrecorder.ui.screens.SettingsScreen
-import com.kitsumed.shizucallrecorder.ui.screens.SponsorScreen
 import com.kitsumed.shizucallrecorder.ui.theme.ShizuCallRecorderTheme
 import com.kitsumed.shizucallrecorder.ui.viewmodels.AppNavigationViewModel
 import com.kitsumed.shizucallrecorder.ui.viewmodels.SettingsViewModel
@@ -142,27 +141,9 @@ fun AppNavigationScreen() {
                 )
 
                 AppScreen.Settings -> {
-                    val lastReminderTime = preferences.getLastForcedReminderSupportProjectTimeInApp()
-                    val currentTime = System.currentTimeMillis()
-
-                    var showSponsorScreen by remember {
-                        // Check if it's been more than a year since the last reminder. 31536000000 ms = 1 year.
-                        mutableStateOf(currentTime - lastReminderTime > 31536000000L)
-                    }
-
-                    if (showSponsorScreen) {
-                        SponsorScreen(onDismiss = {
-                            preferences.setLastForcedReminderSupportProjectTimeInApp(currentTime)
-                            // We also update the notification time since it work by opening the app and then having this logic
-                            // show the sponsor screen. Showing it again after they have already seen it would be annoying.
-                            preferences.setLastForcedReminderSupportProjectTimeNotification(currentTime)
-                            showSponsorScreen = false // Trigger recompose
-                        })
-                    } else {
-                        SettingsScreen(
-                            viewModel = settingsViewModel
-                        )
-                    }
+                    SettingsScreen(
+                        viewModel = settingsViewModel
+                    )
                 }
             }
         }

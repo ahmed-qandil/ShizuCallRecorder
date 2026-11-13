@@ -67,6 +67,8 @@ android {
         // Keep theses two values hard-coded here and update them per version. (To keep F-Droid compatibility since their parser is very basic)
         versionCode = 20
         versionName = "2.0.0"
+        // Keep only Arabic and English resources (also strips library locales, shrinks APK)
+        resourceConfigurations += setOf("ar", "en")
     }
     signingConfigs {
         // Signing config for CI environments.

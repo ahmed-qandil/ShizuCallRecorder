@@ -20,7 +20,6 @@ import com.kitsumed.shizucallrecorder.services.recording.RecordingForegroundServ
 import com.kitsumed.shizucallrecorder.system.permissions.PermissionChecks
 import com.kitsumed.shizucallrecorder.utils.AppLogger
 import com.kitsumed.shizucallrecorder.utils.PhoneNumberManager
-import com.kitsumed.shizucallrecorder.utils.SponsorNotificationHelper
 
 /**
  * RecordingDecisionEngine is responsible for making autonomous decisions about call recording.
@@ -100,7 +99,6 @@ class RecordingDecisionEngine private constructor(context: Context) {
             action = RecordingForegroundService.ACTION_STOP_RECORDING
         }
         appContext.startService(intent)
-        checkAndTriggerSupportNotification();
     }
 
     /**
@@ -308,18 +306,4 @@ class RecordingDecisionEngine private constructor(context: Context) {
         return false
     }
 
-    /**
-     * Checks if it has been more than 1 year since the last support us notification reminder, and posts a notification.
-     */
-    private fun checkAndTriggerSupportNotification() {
-        val lastNotificationTime = appPreferences.getLastForcedReminderSupportProjectTimeNotification()
-        val currentTime = System.currentTimeMillis()
-        // 31536000000 milliseconds = 1 year
-        if (currentTime - lastNotificationTime > 31536000000L) {
-            AppLogger.i( "Time threshold exceeded. Displaying project support notification.")
-            SponsorNotificationHelper.showSupportReminderNotification(appContext)
-            // Set the preference to the current timestamp to restart the countdown timer
-            appPreferences.setLastForcedReminderSupportProjectTimeNotification(currentTime)
-        }
-    }
 }

@@ -92,9 +92,6 @@ fun Context.openGithubReportIssue() {
     launchSmartIntent(Intent(Intent.ACTION_VIEW).apply { data = AppUrls.GITHUB_NEW_ISSUE.toUri() })
 }
 
-fun Context.openGithubSponsor() {
-    launchSmartIntent(Intent(Intent.ACTION_VIEW).apply { data = AppUrls.GITHUB_SPONSOR.toUri() })
-}
 
 /**
  * Launches [intent] safely regardless of whether this [Context] is an [Activity] or not.
