@@ -130,6 +130,7 @@ jobs:
       - name: Build Release APK
         if: ${{ steps.set-output.outputs.BUILD_TYPE == 'release' }}
         env:
+          SKIP_SIGNING: true # Fork CI: no signing secrets, produce an unsigned release APK (owner re-signs)
           KEYSTORE_FILE: release-keystore.jks
           KEYSTORE_PASSWORD: ${{ secrets.SIGNING_KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
